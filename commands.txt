@@ -1,0 +1,8 @@
+python manage.py shell
+
+from student.models import Student
+
+>>> data = Student.objects.all()
+>>> data
+<QuerySet [<Student: shaina>, <Student: raquel>, <Student: lakisha>]>
+
