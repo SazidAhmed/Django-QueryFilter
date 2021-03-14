@@ -144,7 +144,7 @@ def dictfetchall(cursor):
         dict(zip([col[0] for col in desc], row))
         for row in cursor.fetchall()
     ]
-def student_list(request):
+def student_list_(request):
     cursor = connection.cursor()
     # cursor.execute("SELECT * FROM student_student")
     cursor.execute("SELECT * FROM student_student WHERE age > 20")
@@ -162,6 +162,27 @@ def student_list_(request):
     # datax = cursor.fetchone()
     cursor.execute("SELECT * FROM student_student")
     data = cursor.fetchall()
+    print(data)
+    print(connection.queries)
+
+    return render(request,'output.html',{'data': data})
+
+
+
+# RAW SQL queries
+#################################################################
+
+def dictfetchall(cursor):
+    desc = cursor.description
+    return[
+        dict(zip([col[0] for col in desc], row))
+        for row in cursor.fetchall()
+    ]
+def student_list(request):
+    cursor = connection.cursor()
+    # cursor.execute("SELECT * FROM student_student")
+    cursor.execute("SELECT COUNT(id),age FROM student_student GROUP BY age ORDER BY COUNT(id) DESC")
+    data = dictfetchall(cursor)
     print(data)
     print(connection.queries)
 
